@@ -51,140 +51,53 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: BlocListener<CounterCubit, CounterState>(
-      listener: (context, state) {
-      if(!state.isIncrement)
-          {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Decremented'),duration: Duration(microseconds: 200),
-              ),
-            );
-          }
-      if(state.counterVal%7==0)
-        {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Multiple of 5'),duration: Duration(microseconds: 200),
-            ),
-          );
-        }
-  },
-  child: Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
               'You have pushed the button this many times:',
             ),
-            BlocBuilder<CounterCubit, CounterState>(
-          builder: (context, state) {
-            if(state.counterVal<0) {
-              return Text(
-                    "Ahh "+state.counterVal.toString(),
-                    style: Theme.of(context).textTheme.headline3,
-                  );
-            }
-            else if (state.counterVal%2==0)
-              {
-              return Text(
-              "Even "+state.counterVal.toString(),
-              style: Theme.of(context).textTheme.headline3,
-              );
-              }
-            else
-              {
-                return Text(
-                  state.counterVal.toString(),
-                  style: Theme.of(context).textTheme.headline3,
-                );
-              }
-            },
-          ),
-            const SizedBox(height: 20,),
-           Text("only build this widget when value is multiple of 5",
-      style: Theme.of(context).textTheme.bodySmall,
-    ),
-    const SizedBox(height: 20,),
-            BlocBuilder<CounterCubit, CounterState>(
-              buildWhen: (previous, current) => current!=previous && current.counterVal%5==0,
-              builder: (context, state) {
-
-                if(state.counterVal<0) {
-                  return Text(
-                    "Ahh "+state.counterVal.toString(),
-                    style: Theme.of(context).textTheme.headline3,
-                  );
-                }
-                else if (state.counterVal>0)
-                {
-                  return Text(
-                    "Yahh "+state.counterVal.toString(),
-                    style: Theme.of(context).textTheme.headline3,
-                  );
-                }
-                else
-                {
-                  return Text(
-                    state.counterVal.toString(),
-                    style: Theme.of(context).textTheme.headline3,
-                  );
-                }
-              },
-            ),
-            const SizedBox(height: 20,),
-            Text("this is to show the use case of bloc consumer",
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column( mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  BlocConsumer<CounterCubit,CounterState>(
-                      builder: (context, state) {
-                    if(state.counterVal<0) {
-                      return Text(
-                        "Ahh "+state.counterVal.toString(),
-                        style: Theme.of(context).textTheme.headline3,
-                      );
-                    }
-                    else if (state.counterVal>0)
-                    {
-                      return Text(
-                        "Yahh "+state.counterVal.toString(),
-                        style: Theme.of(context).textTheme.headline3,
-                      );
-                    }
-                    else
-                    {
-                      return Text(
-                        state.counterVal.toString(),
-                        style: Theme.of(context).textTheme.headline3,
-                      );
-                    }
-                  },
-                      listener: (context, state) {
-                        if(state.isIncrement)
-                        {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Incremented'),duration: Duration(microseconds: 200),
-                            ),
-                          );
-                        }
-                        if(state.counterVal%3==0)
-                        {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Multiple of 3'),duration: Duration(microseconds: 200),
-                            ),
-                          );
-                        }
-                      }),
-                ],),
-              ],
-            ),
+            BlocConsumer<CounterCubit,CounterState>(
+                builder: (context, state) {
+                  if(state.counterVal<0) {
+                    return Text(
+                      state.counterVal.toString(),
+                      style: Theme.of(context).textTheme.headline3,
+                    );
+                  }
+                  else if (state.counterVal>0)
+                  {
+                    return Text(
+                      "+"+state.counterVal.toString(),
+                      style: Theme.of(context).textTheme.headline3,
+                    );
+                  }
+                  else
+                  {
+                    return Text(
+                      state.counterVal.toString(),
+                      style: Theme.of(context).textTheme.headline3,
+                    );
+                  }
+                },
+                listener: (context, state) {
+                  if(state.isIncrement)
+                  {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Incremented'),duration: Duration(microseconds: 200),
+                      ),
+                    );
+                  }else
+                  {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Decremented'),duration: Duration(microseconds: 200),
+                      ),
+                    );
+                  }
+                }),
             const SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -203,7 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-),
     );
   }
 }
